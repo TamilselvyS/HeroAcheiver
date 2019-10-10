@@ -1,6 +1,6 @@
 import openpyxl
 
-path = "F:/python/mypythonfiles/HeroAcheiver/HeroAcheiver.xlsx"
+path = "HeroAcheiver.xlsx"
   
 wb = openpyxl.load_workbook(path, data_only = True) 
   
@@ -12,4 +12,4 @@ print(bike)
 sheet.cell(2,1).value = 'Bike Name'
 
 
-wb.save('F:/python/mypythonfiles/HeroAcheiver/testing.xlsx')    
+wb.save('testing.xlsx')    

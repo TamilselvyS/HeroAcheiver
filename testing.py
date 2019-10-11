@@ -1,9 +1,10 @@
 import openpyxl
 import datetime
 from docxtpl import DocxTemplate
+
 path = "HeroAcheiver.xlsx"
   
-wb = openpyxl.load_workbook(path, data_only = True) 
+wb = openpyxl.load_workbook(path, data_only = True, read_only = True) 
   
 sheet = wb['details']
 maxrow = sheet.max_row
@@ -13,19 +14,19 @@ print(maxrow)
 # sheet.cell(2,1).value = 'Bike Name'
 # wb.save('testing.xlsx')    
 
-document = DocxTemplate('template.docx')
-
-for x in range(2, maxrow+1):
-    bname = sheet.cell(x, 1).value
-    bprice = sheet.cell(x, 2).value
-    bHelmet = sheet.cell(x, 3).value
-    purchaseExpense = sheet.cell(x, 4).value
-    serviceExpense = sheet.cell(x, 5).value
-    fuelExpense = sheet.cell(x, 6).value
-    totalExpense = sheet.cell(x, 7).value
-    mileage = sheet.cell(x,8).value
-    purchasedDate = sheet.cell(x,9).value
-    purchasedDate = datetime.strptime(purchasedDate, '%d/%b/%Y')
+for ab in range(2, maxrow+1):
+    document = DocxTemplate('template.docx')
+    bname = sheet.cell(ab, 1).value
+    print(bname)
+    bprice = sheet.cell(ab, 2).value
+    bHelmet = sheet.cell(ab, 3).value
+    purchaseExpense = sheet.cell(ab, 4).value
+    serviceExpense = sheet.cell(ab, 5).value
+    fuelExpense = sheet.cell(ab, 6).value
+    totalExpense = sheet.cell(ab, 7).value
+    mileage = sheet.cell(ab,8).value
+    purchasedDate = sheet.cell(ab,9).value
+    purchasedDate = purchasedDate.strftime('%d/%b/%Y')
 
     context = { 'BNAME' : bname,
                 'BPRICE': bprice,
@@ -36,8 +37,6 @@ for x in range(2, maxrow+1):
                 'TOTAL_EXPENSE': totalExpense,
                 'MILEAGE': mileage,
                 'PURCHASED_DATE': purchasedDate
-
-                 }
-
+                }
     document.render(context)
-    document.save("generated_doc.docx")
+    document.save('output/'+bname+'.docx')
